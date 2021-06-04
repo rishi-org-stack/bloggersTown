@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React,{useEffect} from 'react';
 import type {Node} from 'react';
 import {
   SafeAreaView,
@@ -25,6 +25,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import analytics from '@react-native-firebase/analytics';
 
 const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -53,6 +54,14 @@ const Section = ({children, title}): Node => {
 };
 
 const App: () => Node = () => {
+  useEffect(async() => {
+    await analytics().logEvent('basket', {
+      id: 3745092,
+      item: 'mens grey t-shirt',
+      description: ['round neck', 'long sleeved'],
+      size: 'L',
+    })
+  }, [])
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
