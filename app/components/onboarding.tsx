@@ -118,7 +118,7 @@ const HeadImage = () => {
   )
 }
 
-function Onboarding() {
+function Onboarding(props:any) {
     return (
         <Boarding
         bottomBarHeight={200}
@@ -127,6 +127,7 @@ function Onboarding() {
         NextButtonComponent={Next}
         DoneButtonComponent={Next}
         DotComponent={Dot}
+        onDone={() =>props.navigation.navigate("Auth")}
         pages={[
           {
             backgroundColor: "#FFFFFF",
