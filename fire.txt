@@ -1,0 +1,30 @@
+import firestore from '@react-native-firebase/firestore';
+
+const fstore = firestore()
+     
+        const  p = new(person)
+        
+        fstore
+        .collection('User')
+        .doc("ok102").set(p)
+        .then(res=>console.log(res))
+        .catch(e=>console.log(e))
+
+//get all
+fstore
+        .collection('User').doc("ok102").collection("us")
+        .get()
+        .then(querySnapshot => {
+          console.log('Total users: ', querySnapshot.size);
+      
+          querySnapshot.forEach(documentSnapshot => {
+            console.log('User ID: ', documentSnapshot.id, documentSnapshot.data());
+          });
+
+//compunding docs
+fstore
+        .collection('User')
+        .doc("ok102").collection(name_collection)
+        .doc(id you want for your document).set(p)
+        .then(res=>console.log(res))
+        .catch(e=>console.log(e))
