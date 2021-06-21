@@ -11,15 +11,17 @@ function NormalButton(props:any) {
         childeren
     } = props
     return (
-        <View style={containerStyle}>
+        
             <TouchableOpacity style={buttonStyle} onPress={onPress}>
+                <View style={containerStyle}>
                 <Text style={titleStyle}>
                     {title}
                 </Text>
                 {childeren}
+                </View>
+
             </TouchableOpacity>
 
-        </View>
     )
 }
 

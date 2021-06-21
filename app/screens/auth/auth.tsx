@@ -3,10 +3,21 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import AuthHeader from '../../components/authHeader';
 import NormalButton from '../../components/button/button';
 import NormalInput from '../../components/inputs/normal';
+import database from '../../repository/firestore/function';
+import person from '../../repository/firestore/model';
 import { colors } from '../../theme/color';
+// import 
+import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+
+const st = firestore()
+const ft = new database("User");
+const p = new person();
 function Auth() {
     const [login, setlogin] = useState(true)
     const [signup, setsignup] = useState(false)
+    const [email, setemail] = useState("")
+    const [password, setpassword] = useState("")
+    // const [, set] = useState("")
     const [emailClicked, setemailClicked] = useState(false)
     return (
         <View style={{
@@ -132,10 +143,11 @@ function Auth() {
 
                         <NormalButton
                             onPress={login ? () => setemailClicked(true) : () => {
-                                console.warn("nothing");
+                                // const p = new person()
+
                             }}
                             childeren={<NormalInput
-                                head={"Username"}
+                                head={"Email"}
                                 headStyle={
                                     {
                                         fontFamily: "Avenir",
@@ -153,6 +165,9 @@ function Auth() {
                                     fontFamily: "Avenir",
                                     fontWeight: "400"
 
+                                }}
+                                onChangeText={(t: any) => {
+                                    setemail(t)
                                 }}
                                 containerStyle={{
                                     width: "100%",
@@ -190,6 +205,7 @@ function Auth() {
                                     // backgroundColor:"red",
 
                                 }}
+                                onChangeText={(t: string) => setpassword(t)}
                             />}
                         />
                         <NormalButton
@@ -207,6 +223,27 @@ function Auth() {
                                 fontSize: 16,
                                 fontFamily: "Avenir",
                                 color: colors.backgroundColor
+                            }}
+                            onPress={login ? () => {
+                                let res = ft.getPersonWithEmailAndPassword(email, password)
+                                res
+                                    .then(querySnapshot => {
+                                        console.log('Total users: ', querySnapshot.size);
+                                        if (querySnapshot.size == 0) {
+                                            console.warn("No such User present")
+                                        }
+                                    })
+                                    .catch(e => {
+                                        console.warn("No such User present")
+                                    });
+                            } : () => {
+                                p.changeName("name")
+                                p.changeEmail(email)
+                                p.changePassword(password)
+                                let res = ft.insertWithoutID(p)
+                                res
+                                    .then(ok => console.log(ok))
+                                    .catch(e => console.log(e))
                             }}
                         />
                         {
