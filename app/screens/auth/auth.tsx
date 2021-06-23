@@ -8,6 +8,7 @@ import person from '../../repository/firestore/model';
 import { colors } from '../../theme/color';
 // import 
 import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+import { getData, storeData } from '../../repository/async/storage';
 
 const st = firestore()
 const ft = new database("User");
@@ -236,6 +237,7 @@ function Auth() {
                                     .catch(e => {
                                         console.warn("No such User present")
                                     });
+                                    console.log(getData("user"))
                             } : () => {
                                 p.changeName("name")
                                 p.changeEmail(email)
@@ -244,6 +246,8 @@ function Auth() {
                                 res
                                     .then(ok => console.log(ok))
                                     .catch(e => console.log(e))
+
+                                storeData(p,"user")
                             }}
                         />
                         {
