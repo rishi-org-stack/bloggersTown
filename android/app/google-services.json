@@ -1,70 +1,41 @@
 {
   "project_info": {
-    "project_number": "738113843242",
-    "project_id": "bloggerstown",
-    "storage_bucket": "bloggerstown.appspot.com"
+    "project_number": "560688746043",
+    "project_id": "bloggerstown-9e1ba",
+    "storage_bucket": "bloggerstown-9e1ba.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:738113843242:android:117ddf7be9912bb4439353",
+        "mobilesdk_app_id": "1:560688746043:android:3279b37f7484a5ff05161e",
         "android_client_info": {
           "package_name": "com.bloggerstown"
         }
       },
       "oauth_client": [
         {
-          "client_id": "738113843242-bvd5dhpcf2etvishf3if5q86nmrpmgcl.apps.googleusercontent.com",
+          "client_id": "560688746043-cunqq4f7ak2k67tqeesa1jueo9kjv855.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.bloggerstown",
-            "certificate_hash": "616c15ec006cb0cc06b702f3f5d59673fd1f92c3"
+            "certificate_hash": "c8d4c03c77e2106a3f45455e3474280403192242"
           }
         },
         {
-          "client_id": "738113843242-m5vf567t4h6lln31g520b1najfdnt6u1.apps.googleusercontent.com",
+          "client_id": "560688746043-am9er4ffs7oqeeffae33r1j8bf40u4f5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBRxXo5dB93ilPToKK5-Q_sXzQnMhskB6k"
+          "current_key": "AIzaSyAgqCNob5NfchqaKhY41rFJ12DlyLOayQk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "738113843242-m5vf567t4h6lln31g520b1najfdnt6u1.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:738113843242:android:59ed8ec06be0d106439353",
-        "android_client_info": {
-          "package_name": "com.rishi.blogTown"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "738113843242-m5vf567t4h6lln31g520b1najfdnt6u1.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBRxXo5dB93ilPToKK5-Q_sXzQnMhskB6k"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "738113843242-m5vf567t4h6lln31g520b1najfdnt6u1.apps.googleusercontent.com",
+              "client_id": "560688746043-am9er4ffs7oqeeffae33r1j8bf40u4f5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

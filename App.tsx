@@ -1,57 +1,29 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React, { useEffect, useState } from 'react';
-
-import {
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-
-
-} from 'react-native';
-import Splash from './app/screens/splash/splash';
+import 'react-native-gesture-handler';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import OnrRoutes from './app/routes/onboarding';
+import MainRoute from './src/screens/main';
+import { KeyboardAvoidingView, Platform } from 'react-native';
+import Edit from './src/screens/main/blog/edit';
+import MainNav from './src/screens/main';
 
-const App = () => {
-  const [Loading, setLoading] = useState(true)
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false)
-    }, 1000 * 5)
-  })
+interface Props {
+  
+}
 
+const App = (props: Props) => {
+  
   return (
-    <SafeAreaView style={{
-      flex: 1
-    }}>
-     <NavigationContainer>
-      <OnrRoutes
-      firstTime={true}
-      />
-     </NavigationContainer>
-    </SafeAreaView>
-  );
-};
-const shadow = StyleSheet.create({
-  shadow: {
-    shadowColor: "green",
-    shadowRadius: 10,
-    shadowOpacity: 0.9,
-    shadowOffset: {
-      width: 90,
-      height: 10
-    },
-    elevation:10
-  }
-})
+    // <NavigationContainer >
+      <KeyboardAvoidingView style={{flex:1}} >
+       {/* <MainRoute/> */}
+      {/* <Edit/> */}
+      <MainNav/>
+     </KeyboardAvoidingView>
+  //  </NavigationContainer>
+    // <Home/>
+  )
+}
+
 export default App;
+
+
