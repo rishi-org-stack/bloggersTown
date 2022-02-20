@@ -1,7 +1,10 @@
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import React from 'react'
 import { Dimensions, ScrollView } from 'react-native';
 import { Container, Text, TouchableContainer } from '../../../lib';
 import R from '../../../res';
+import { getAllBlogWithUid } from '../../../services/firebase/blog';
+import userState from '../../../store/main';
 import { Blog, Header } from '../components';
 
 interface Props {
@@ -13,6 +16,25 @@ const Profile = (props: Props) => {
     const [postClicked, setpostClicked] = React.useState(false)
     const [followingClicked, setfollowingClicked] = React.useState(false)
     const [followersClicked, setfollowersClicked] = React.useState(false)
+    const [myBlogs, setmyBlogs] = React.useState<FirebaseFirestoreTypes.QueryDocumentSnapshot<FirebaseFirestoreTypes.DocumentData>[]>([])
+    React.useEffect(()=>{
+        getAllBlogWithUid(
+            {
+                uid:userState.get().id,
+                onSuccess:(res)=>{
+                    console.log('==================firestore/Blog-GET==================');
+                    console.log("success: ", res);
+                    setmyBlogs(res)
+                    console.log('====================================');
+                },
+                onEroor:(e)=>{
+                    console.log('==================firestore/Blog-GET==================');
+                    console.log("errror: ",e);
+                    console.log('====================================');
+                }
+            }
+        )
+    },[])
     return (
         <Container flex={1} alignItems='center' backgoundColor={R.colors.background}>
             <Container height={'100%'} width={'90%'} alignItems='center' >
@@ -123,10 +145,10 @@ const Profile = (props: Props) => {
                             </Text>
 
                         {
-                            d.map(()=>{
+                            myBlogs.map((_,i)=>{
                                 return(
                                     <Container marginT={20}>
-                                        <Blog topic='Big Data' question='Why Big Data Needs Thick Data?' img={<R.svgs.P4/>}/>
+                                        <Blog topic={myBlogs[i].data()["tags"][0]} question={myBlogs[i].data()["title"]} img={<R.svgs.P4/>}/>
                                     </Container>
                                 )
                             })

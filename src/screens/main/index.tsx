@@ -86,7 +86,6 @@ const MainRoute =()=>{
                   
                 )
               },
-              // tabBarShowLabel:false
               
               }}  />
             <Tab.Screen name="Search" component={Edit} options={{

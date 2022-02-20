@@ -18,6 +18,8 @@ const App = (props: Props) => {
        {/* <MainRoute/> */}
       {/* <Edit/> */}
       <MainNav/>
+
+      <></>
      </KeyboardAvoidingView>
   //  </NavigationContainer>
     // <Home/>

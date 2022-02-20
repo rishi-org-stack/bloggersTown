@@ -30,6 +30,10 @@ interface Props {
     
 }
 
+type x = {
+    
+}
+
 function Container(p: Props): ReactElement {
     // const style = tailwind('bg-red-500 h-7 w-7')
     return (

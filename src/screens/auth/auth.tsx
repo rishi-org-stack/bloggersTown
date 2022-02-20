@@ -2,66 +2,88 @@ import React from 'react'
 import { Container, Text, TouchableContainer } from '../../lib';
 import R from '../../res';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
 import userState from '../../store/main';
-import { User } from '../../types/user';
 import { StackNavigationProp } from '@react-navigation/stack';
-import firestore from '@react-native-firebase/firestore';
-
-const usersCollection = firestore().collection('Users');
+import { useGoogleAuth } from '../../hooks/user';
+import { addUser, getUserWithEmail } from '../../services/firebase/user';
 
 interface Props {
     navigation: StackNavigationProp<any,any>
 }
 
-  async function onGoogleButtonPress() {
-    // Get the users ID token
-    const { idToken } = await GoogleSignin.signIn();
-  
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-  
-    // Sign-in the user with the credential
-    return auth().signInWithCredential(googleCredential);
-  }
 const Auth = (props: Props) => {
+
+    const [pressentinDb, setpressentinDb] = React.useState(true)
+
+    const user = useGoogleAuth()
+
     React.useEffect(()=>{
         GoogleSignin.configure({
             scopes:['email'],
             
             webClientId: '560688746043-am9er4ffs7oqeeffae33r1j8bf40u4f5.apps.googleusercontent.com',
         });
-    },[])
+
+        if (!pressentinDb)
+        {
+            addUser({
+                user:user,
+                onSuccess:(res)=>{
+                    console.log('==================firestore/User-ADD==================');
+                    console.log("success: ", res.id);
+                    user.id="Users/"+res.id;
+                    userState.set(user);
+                    props.navigation.navigate("MainRoute");
+                    setpressentinDb(true)
+                    console.log('====================================');
+                },
+                onEroor:(e)=>{
+                    console.log('==================firestore/User-ADD==================');
+                    console.log("errror: ",e);
+                    console.log('====================================');
+                }
+            })
+        }
+    },[pressentinDb])
     return (
         <Container flex={1} backgoundColor={R.colors.background} center>
             <Container height={'100%'} width={'90%'} backgoundColor={R.colors.background} center >
                 <TouchableContainer width={40}  Onpress={() =>{
-                     onGoogleButtonPress().
-                     then((k) =>{ 
-                        console.log('Signed in with Google!',k.user);
-                        let user =new User(k.user.displayName!==null?k.user.displayName:"def",k.user.email!==null?k.user.email:"defEmail")
-                        userState.set(user)
-                        console.log('====================================');
-                        console.log("collection: ",usersCollection);
-                        console.log('====================================');
-                        usersCollection.add(user).
-                        then(res=>{
-                            console.log('===============Firebase/firestore=====================');
-                            console.log("user added", res);
-                            props.navigation.navigate("MainRoute")
+                    console.log('====================================');
+                    console.log("user ",user);
+                    console.log('====================================');
+                    getUserWithEmail({
+                        email:user.email,
+                        onSuccess:(res)=>{
+                            console.log('==================firestore/User-GET==================');
+                            console.log("success: ", res);
+                            res[0]===undefined&&
+                                setpressentinDb(false);
+
+                                if (res[0]){
+                                    console.log("id ",);
+
+                                    userState.set({
+                                        
+                                        id:res[0].ref.path,
+                                        name:res[0].data()["name"], 
+                                        email:res[0].data()["email"]
+                                    });
+                                    props.navigation.navigate("MainRoute")
+
+                                }
+                                
                             console.log('====================================');
-                        }).catch(
-                            e=>{
-                                console.log('=======================Firebase/firestore=============');
-                                console.log("error: ",e);
-                                console.log('====================================');
-                            }
-                        )
-                        
-                    }).
-                     catch(e=>console.log("error ",e))
-                    
-                }}>
+                        },
+                        onEroor:(e)=>{
+                            console.log('==================firestore/User-GET==================');
+                            console.log("errror: ",e);
+                            console.log('====================================');
+                        }
+                    })
+
+                }}
+                >
                     <R.svgs.goggle/>
                 </TouchableContainer>
                 
